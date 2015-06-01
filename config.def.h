@@ -1,3 +1,4 @@
+#define NOBOLD
 static char *font = "Neep:style=Regular:antialias=false:autohint=false";
 static int borderpx = 2;
 static char *shell = "/bin/sh";

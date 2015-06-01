@@ -1945,6 +1945,8 @@ csihandle(void) {
 		csidump();
 		/* die(""); */
 		break;
+	case '>': /* RMKX -- Normal Keypad */
+		break;
 	case '@': /* ICH -- Insert <n> blank char */
 		DEFAULT(csiescseq.arg[0], 1);
 		tinsertblank(csiescseq.arg[0]);
@@ -2943,8 +2945,10 @@ xloadfonts(char *fontstr, double fontsize) {
 	if(xloadfont(&dc.ifont, pattern))
 		die("st: can't open font %s\n", fontstr);
 
+#ifndef NOBOLD
 	FcPatternDel(pattern, FC_WEIGHT);
 	FcPatternAddInteger(pattern, FC_WEIGHT, FC_WEIGHT_BOLD);
+#endif
 	if(xloadfont(&dc.ibfont, pattern))
 		die("st: can't open font %s\n", fontstr);
 
