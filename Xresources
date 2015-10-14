@@ -1,4 +1,5 @@
 st.font:			-*-fixed-*-*-*-*-10-*-*-*-*-*-*-1
+st.bold_font:			0
 st.background:			#131415
 st.foreground:			#A3BAD0
 st.cursorColor:			#8d9b53

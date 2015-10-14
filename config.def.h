@@ -1,5 +1,6 @@
-#define NOBOLD
-static char *font = "Neep:style=Regular:antialias=false:autohint=false";
+//static char *font = "-jmk-neepmod-medium-r-normal--11-100-75-75-c-60-iso8859-1";
+static char *font = "-romeovs-creep-regular-r-normal--16-160-75-75-m-4-iso10646-1";
+static int bold_font = 0;
 static int borderpx = 2;
 static char *shell = "/bin/sh";
 float cwscale = 1.0;
@@ -350,3 +351,8 @@ static uint selmasks[] = {
 	[SEL_RECTANGULAR] = Mod1Mask,
 };
 
+static unsigned int cursorthickness = 0;
+static char vtiden[] = "\033[?6c";
+static char *utmp = NULL;
+static char stty_args[] = "stty raw -echo -iexten echonl";
+static uint forceselmod = ShiftMask;
