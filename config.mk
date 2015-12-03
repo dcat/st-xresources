@@ -8,8 +8,8 @@ VERSION = 0.6
 PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
 
-X11INC = /usr/X11R6/include
-X11LIB = /usr/X11R6/lib
+X11INC = /opt/X11/include
+X11LIB = /opt/X11/lib
 
 # includes and libs
 INCS = -I. -I/usr/include -I${X11INC} \

@@ -4079,6 +4079,7 @@ config_init(void)
 		db = XrmGetStringDatabase(resm);
 
 		XRESOURCE_LOAD_STRING("st.font", font);
+		XRESOURCE_LOAD_STRING("st.color0", colorname[0]);
 		XRESOURCE_LOAD_STRING("st.color1", colorname[1]);
 		XRESOURCE_LOAD_STRING("st.color2", colorname[2]);
 		XRESOURCE_LOAD_STRING("st.color3", colorname[3]);

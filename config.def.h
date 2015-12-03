@@ -1,47 +1,25 @@
-//static char *font = "-jmk-neepmod-medium-r-normal--11-100-75-75-c-60-iso8859-1";
-static char *font = "-romeovs-creep-regular-r-normal--16-160-75-75-m-4-iso10646-1";
+static unsigned int xfps = 120;
+static unsigned int actionfps = 30;
+static int bellvolume = 0;
+static KeySym mappedkeys[] = { -1 };
+static unsigned int cursorthickness = 0;
+static char vtiden[] = "\033[?6c";
+static char *utmp = NULL;
+static char stty_args[] = "stty raw -echo -iexten echonl";
+static uint forceselmod = ShiftMask;
+static char *font = "-gbdfed-creep-regular-r-normal--16-120-96-96-m-4-iso10646-1";
 static int bold_font = 0;
 static int borderpx = 2;
 static char *shell = "/bin/sh";
 float cwscale = 1.0;
 float chscale = 1.0;
-
-/*
- * word delimiter string
- *
- * More advanced example: " `'\"()[]{}"
- */
 static char worddelimiters[] = " ";
-
-/* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
 static unsigned int tripleclicktimeout = 600;
-
-/* alt screens */
 static bool allowaltscreen = true;
-
-/* frames per second st should at maximum draw to the screen */
-static unsigned int xfps = 120;
-static unsigned int actionfps = 30;
-
-/*
- * blinking timeout (set to 0 to disable blinking) for the terminal blinking
- * attribute.
- */
 static unsigned int blinktimeout = 800;
-
-/*
- * bell volume. It must be a value between -100 and 100. Use 0 for disabling
- * it
- */
-static int bellvolume = 0;
-
-/* TERM value */
-//static char termname[] = "st-256color";
-static char *termname = "xterm-256color";
-
+static char *termname = "st-256color";
 static unsigned int tabspaces = 2;
-
 
 static const char *colorname[] = {
 	"#594243",
@@ -67,28 +45,19 @@ static const char *colorname[] = {
 	"#8d9b53", /* cursor */
 };
 
-
 static unsigned int defaultbg = 256;
 static unsigned int defaultfg = 257;
 static unsigned int defaultcs = 258;
 
-/*
- * Colors used, when the specific fg == defaultfg. So in reverse mode this
- * will reverse too. Another logic would only make the simple feature too
- * complex.
- */
 static unsigned int defaultitalic = 11;
 static unsigned int defaultunderline = 7;
 
-/* Internal mouse shortcuts. */
-/* Beware that overloading Button1 will disable the selection. */
 static Mousekey mshortcuts[] = {
 	/* button               mask            string */
 	{ Button4,              XK_ANY_MOD,     "\031" },
 	{ Button5,              XK_ANY_MOD,     "\005" },
 };
 
-/* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
 
 static Shortcut shortcuts[] = {
@@ -103,41 +72,6 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_Num_Lock,    numlock,        {.i =  0} },
 };
 
-/*
- * Special keys (change & recompile st.info accordingly)
- *
- * Mask value:
- * * Use XK_ANY_MOD to match the key no matter modifiers state
- * * Use XK_NO_MOD to match the key alone (no modifiers)
- * appkey value:
- * * 0: no value
- * * > 0: keypad application mode enabled
- * *   = 2: term.numlock = 1
- * * < 0: keypad application mode disabled
- * appcursor value:
- * * 0: no value
- * * > 0: cursor application mode enabled
- * * < 0: cursor application mode disabled
- * crlf value
- * * 0: no value
- * * > 0: crlf mode is enabled
- * * < 0: crlf mode is disabled
- *
- * Be careful with the order of the definitons because st searchs in
- * this table sequentially, so any XK_ANY_MOD must be in the last
- * position for a key.
- */
-
-/*
- * If you want keys other than the X11 function keys (0xFD00 - 0xFFFF)
- * to be mapped below, add them to this array.
- */
-static KeySym mappedkeys[] = { -1 };
-
-/*
- * State bits to ignore when matching key or button events.  By default,
- * numlock (Mod2Mask) and keyboard layout (XK_SWITCH_MOD) are ignored.
- */
 static uint ignoremod = Mod2Mask|XK_SWITCH_MOD;
 
 static Key key[] = {
@@ -339,20 +273,8 @@ static Key key[] = {
 	{ XK_F35,           XK_NO_MOD,      "\033[23;5~",    0,    0,    0},
 };
 
-/*
- * Selection types' masks.
- * Use the same masks as usual.
- * Button1Mask is always unset, to make masks match between ButtonPress.
- * ButtonRelease and MotionNotify.
- * If no match is found, regular selection is used.
- */
 
 static uint selmasks[] = {
 	[SEL_RECTANGULAR] = Mod1Mask,
 };
 
-static unsigned int cursorthickness = 0;
-static char vtiden[] = "\033[?6c";
-static char *utmp = NULL;
-static char stty_args[] = "stty raw -echo -iexten echonl";
-static uint forceselmod = ShiftMask;
