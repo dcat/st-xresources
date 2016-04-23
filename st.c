@@ -113,17 +113,17 @@ char *argv0;
 #define TRUEBLUE(x)      (((x) & 0xff) << 8)
 
 #define XRESOURCE_LOAD_STRING(NAME, DST)                      \
-	XrmGetResource(db, NAME, "String", &type, &ret);      \
+	XrmGetResource(db, NAME, NAME, &type, &ret);      \
 	if (ret.addr != NULL && !strncmp("String", type, 64)) \
 		DST = ret.addr;
 
 #define XRESOURCE_LOAD_INTEGER(NAME, DST)                     \
-	XrmGetResource(db, NAME, "String", &type, &ret);      \
+	XrmGetResource(db, NAME, NAME, &type, &ret);      \
 	if (ret.addr != NULL && !strncmp("String", type, 64)) \
 		DST = strtoul(ret.addr, NULL, 10);
 
 #define XRESOURCE_LOAD_FLOAT(NAME, DST)                       \
-	XrmGetResource(db, NAME, "String", &type, &ret);      \
+	XrmGetResource(db, NAME, NAME, &type, &ret);      \
 	if (ret.addr != NULL && !strncmp("String", type, 64)) \
 		DST = strtof(ret.addr, NULL);
 
